@@ -1,2 +1,10 @@
+# შიდა საიტი — საძიებო სისტემებში არ უნდა მოხვდეს
 User-agent: *
+Disallow: /img/
+Disallow: /manifest.json
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
 Disallow: /
