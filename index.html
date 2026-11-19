@@ -23,9 +23,21 @@
 </head>
 <body>
 <div class="load" id="load"><img src="icon-192.png" alt=""><div>WINDMILL</div></div>
-<iframe id="app" src="https://script.google.com/macros/s/AKfycbwI1PV4pge5RH0YIXJwgXLPuMy8BORaf-UXxpJee8SltCi0LW4pPmho71fDVdgqS5Zg/exec"
+<iframe id="app"
   allow="clipboard-write; web-share" title="WINDMILL"></iframe>
 <script>
+  var EXEC = 'https://script.google.com/macros/s/AKfycbwI1PV4pge5RH0YIXJwgXLPuMy8BORaf-UXxpJee8SltCi0LW4pPmho71fDVdgqS5Zg/exec';
+  var tk = '';
+  try { tk = localStorage.getItem('wm_token') || ''; } catch (e) {}
+  document.getElementById('app').src = EXEC + (tk ? '?t=' + encodeURIComponent(tk) : '');
+  window.addEventListener('message', function (e) {
+    var host = '';
+    try { host = new URL(e.origin).hostname; } catch (x) { return; }
+    if (!/\.googleusercontent\.com$/.test(host)) return;
+    var d = e.data;
+    if (!d || d.wm !== 'token') return;
+    try { if (d.t) localStorage.setItem('wm_token', d.t); else localStorage.removeItem('wm_token'); } catch (x) {}
+  });
   document.getElementById('app').addEventListener('load', function(){ setTimeout(function(){ document.getElementById('load').style.display='none'; }, 300); });
 </script>
 </body>
